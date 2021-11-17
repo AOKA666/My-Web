@@ -1,0 +1,35 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} 动物星球 {% endblock %}
+{% block head %}
+{{ super() }}
+<link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webStyle.css') }}">
+{% endblock %}
+{% block body %}
+	{% for message in get_flashed_messages() %}
+	<div class="alert alert-success text-center">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{ message }}
+	</div>
+	{% endfor %}
+	<div class="jumbotron text-center" style="margin-bottom: 0;padding-top: 24px;">
+		<ul class="list-inline text-right" style="margin-right: 20px;">			
+			<li><span class="text-success">Hello</span></li>
+			<li><a href="{{ url_for('login') }}">请登录</a></li>
+		</ul>
+	<h1>动物星球</h1>
+	<a class="btn btn-info">了解更多</a>
+	</div>
+	{% block navbar %}{% endblock %}
+	{% block content %}    
+		{% block carousel %}{% endblock %}
+	{% endblock %}
+	{% block scripts %}
+	<script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{{ url_for('static', filename='video.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	{% endblock %}	
+{% endblock %}
+

@@ -1,0 +1,39 @@
+.nav-active{
+	color: white;
+}
+
+#img-ancient{
+	width: 100%;
+	cursor: pointer;
+	transition: all 0.6s;
+}
+#img-ancient:hover{
+	transform: scale(1.5)
+}
+#zoom{
+	overflow: hidden;
+}
+.rmbk-tiger{
+	width: 100%;
+	cursor: pointer;
+	transition: all 0.6s;
+	margin-left: 10%;
+}
+.rmbk-lion{
+	width: 100%;
+	cursor: pointer;
+	transition: all 0.6s;
+	margin-left: -10%;
+}
+.rmbk:hover{
+	transform: scale(1.2);
+}
+.box{
+	overflow: hidden;
+}
+.arena{
+	width: 100%;
+}
+.shijue{
+	margin: 10px 0;
+}

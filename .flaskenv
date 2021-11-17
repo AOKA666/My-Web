@@ -1,0 +1,2 @@
+FLASK_APP=animal.py
+FLASK_DEBUG=1
