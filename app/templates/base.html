@@ -13,15 +13,18 @@
 		{{ message }}
 	</div>
 	{% endfor %}
-	<div class="jumbotron text-center" style="margin-bottom: 0;padding-top: 24px;">
+	<div class="jumbotron text-center" style="margin-bottom:0;padding-top: 24px;">
 	{% block login %}{% endblock %}
-	<h1>动物星球</h1>
-	<a class="btn btn-info">了解更多</a>
+	<h1><a href="{{url_for('index')}}" style="text-decoration:none;">动物星球</a></h1>
+	{% block button %}{% endblock %}
 	</div>
 	{% block navbar %}{% endblock %}
 	{% block content %}    
 		{% block carousel %}{% endblock %}
 	{% endblock %}
+	<div class="jumbotron text-center">
+		Copyright @<a href="#">AOKA666</a>
+	</div>
 	{% block scripts %}
 	<script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -37,3 +37,14 @@
 .shijue{
 	margin: 10px 0;
 }
+.news{
+	cursor: pointer;
+}
+.link{
+	display: inline-block;
+	width: 100%;
+}
+.myform{
+	margin-top: 8%;
+	margin-bottom: 8%;
+}

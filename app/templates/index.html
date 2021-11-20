@@ -16,6 +16,9 @@
 		{% endif %}
 	</ul>
 {% endblock %}
+{% block button %}
+	<a class="btn btn-info">了解更多</a>
+{% endblock %}
 {% block navbar %}
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -98,27 +101,27 @@
 		</div>            
 		<div class="col-md-8">
 			<ul class="nav nav-tabs" id="navs">
-				<li class="active mynav"><a href="#dwyw" data-toggle="tab">动物要闻</a></li>
-				<li class="mynav"><a href="#rmzx" data-toggle="tab">热门资讯</a></li>
-				<li class="mynav"><a href="#blbl" data-toggle="tab">巴拉巴拉</a></li>
+				<li class="active mynav"><a class="news" data-toggle="tab">动物要闻</a></li>
+				<li class="mynav"><a class="news" data-toggle="tab">热门资讯</a></li>
+				<li class="mynav"><a class="news" data-toggle="tab">巴拉巴拉</a></li>
 			</ul>
 			<div class="tab-content" id="tabs">
-				<div class="tab-pane fade in active" id="dwyw">
-					<div class="panel-group">
+				<div class="tab-pane fade in active">
+					<div class="panel-group" id="dwyw">
 						{% for i in range(10) %}
 						{% include '_dwyw.html' %}
 						{% endfor %}
 					</div>
 				</div>
-				<div class="tab-pane fade" id="rmzx">
-					<div class="panel-group">
+				<div class="tab-pane fade">
+					<div class="panel-group" id="rmzx">
 						{% for i in range(10) %}
 						{% include '_rmzx.html' %}
 						{% endfor %}
 					</div>
 				</div>
-				<div class="tab-pane fade" id="blbl">
-					<div class="panel-group">
+				<div class="tab-pane fade">
+					<div class="panel-group" id="blbl">
 						{% for i in range(10) %}
 						{% include '_blbl.html' %}
 						{% endfor %}
@@ -258,59 +261,44 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-4">
-					<div class="panel-group" id="farcry">
+					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h4 class="panel-title text-center">
-									<a data-toggle="collapse" data-parent="#farcry" 
-										href="#farcry3" style="display:inline-block; width:100%;">
-										孤岛惊魂系列
-										<span class="label label-warning">推荐</span>
-									</a>
+								<h4 class="panel-title text-center">								
+									孤岛惊魂系列
+									<span class="label label-warning">推荐</span>
 								</h4>
 							</div>						
-							<div id="farcry3" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<img src="../static/img/games/farcry.jpg" class="img-responsive img-rounded">
-								</div>
+							<div class="panel-body">
+								<img src="../static/img/games/farcry.jpg" class="img-responsive img-rounded">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="panel-group" id="farcry">
+					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center">
-									<a data-toggle="collapse" data-parent="#farcry" 
-										href="#farcry3" style="display:inline-block; width:100%;">
-										动物园之星
-									</a>
+									动物园之星
 								</h4>
 							</div>						
-							<div id="farcry3" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<img src="../static/img/games/planet-zoo.jpg" class="img-responsive img-rounded">
-								</div>
+							<div class="panel-body">
+								<img src="../static/img/games/planet-zoo.jpg" class="img-responsive img-rounded">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="panel-group" id="farcry">
+					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center">
-									<a data-toggle="collapse" data-parent="#farcry" 
-										href="#farcry3" style="display:inline-block; width:100%;">
-										猎人：野性的互换
-									</a>
+									猎人：野性的呼唤
 								</h4>
 							</div>						
-							<div id="farcry3" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<img src="../static/img/games/hunter.jpg" class="img-responsive img-rounded">
-								</div>
+							<div class="panel-body">
+								<img src="../static/img/games/hunter.jpg" class="img-responsive img-rounded">
 							</div>
 						</div>
 					</div>
@@ -319,5 +307,4 @@
 		</div>
 	</div>	
 </div>
-<div class="jumbotron text-center" style="height:100px;">Copyright @<a href="#">AOKA666</a></div>
 {% endblock %}
