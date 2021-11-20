@@ -14,10 +14,7 @@
 	</div>
 	{% endfor %}
 	<div class="jumbotron text-center" style="margin-bottom: 0;padding-top: 24px;">
-		<ul class="list-inline text-right" style="margin-right: 20px;">			
-			<li><span class="text-success">Hello</span></li>
-			<li><a href="{{ url_for('login') }}">请登录</a></li>
-		</ul>
+	{% block login %}{% endblock %}
 	<h1>动物星球</h1>
 	<a class="btn btn-info">了解更多</a>
 	</div>
