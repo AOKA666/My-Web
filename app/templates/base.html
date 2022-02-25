@@ -7,29 +7,49 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webStyle.css') }}">
 {% endblock %}
 {% block body %}
-	{% for message in get_flashed_messages() %}
-	<div class="alert alert-success text-center">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		{{ message }}
+	<div class="wrapper">
+		{% for message in get_flashed_messages() %}
+		<div class="alert alert-success text-center">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			{{ message }}
+		</div>
+		{% endfor %}
+		<div class="jumbotron text-center" style="margin-bottom:0;padding-top: 24px;">
+		<ul class="list-inline text-right" style="margin-right: 20px;">
+		{% if current_user.is_authenticated %}
+			<li><h4 class="text-info">Hello 
+			<span class="glyphicon glyphicon-user"></span><a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username}}</h4></li>
+			<li><a href="{{ url_for('auth.logout') }}">
+			<span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+		{% else %}
+			<li><h4 class="text-info">Hello 
+			<span class="glyphicon glyphicon-user"></span>陌生人 </h4></li>
+			<li><a href="{{ url_for('auth.login') }}">
+			<span class="glyphicon glyphicon-log-in"></span>请登录</a></li>
+		{% endif %}
+		</ul>
+		<h1><a href="{{url_for('main.index')}}" style="text-decoration:none;">动物星球</a></h1>
+		{% block button %}{% endblock %}
+		</div>
+		{% block navbar %}{% endblock %}
+		<div class="container">
+		{% block content %}    
+			{% block carousel %}{% endblock %}
+		{% endblock %}
+		</div>
+		<div class="push"></div>
 	</div>
-	{% endfor %}
-	<div class="jumbotron text-center" style="margin-bottom:0;padding-top: 24px;">
-	{% block login %}{% endblock %}
-	<h1><a href="{{url_for('index')}}" style="text-decoration:none;">动物星球</a></h1>
-	{% block button %}{% endblock %}
-	</div>
-	{% block navbar %}{% endblock %}
-	{% block content %}    
-		{% block carousel %}{% endblock %}
-	{% endblock %}
-	<div class="jumbotron text-center">
+	<div class="jumbotron text-center foot">
 		Copyright @<a href="#">AOKA666</a>
 	</div>
 	{% block scripts %}
-	<script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="{{ url_for('static', filename='video.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	<!-- <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script> -->
+	<!-- <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+		{{ super() }}
+		<script src="{{ url_for('static', filename='video.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='script.js') }}"></script>
+		<script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+		{{ moment.include_moment() }}
 	{% endblock %}	
 {% endblock %}
 

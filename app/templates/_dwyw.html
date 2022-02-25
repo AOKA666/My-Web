@@ -5,14 +5,14 @@
 {% endif %}
 	<div class="panel-heading">
 		<h4 class="panel-title">
-			<a class="link" data-toggle="collapse" data-parent="#dwyw" href="#collapse{{ i }}">
+			<a class="link" data-toggle="collapse" data-parent="#dwyw" href="#dwyw-collapse{{ i }}">
 				{{ dwyw[i] }}
 			</a>
 		</h4>
 	</div>
-	<div id="collapse{{ i }}" class="panel-collapse collapse">
+	<div id="dwyw-collapse{{ i }}" class="panel-collapse collapse">
 		<div class="panel-body">
-			<img src="../static/img/dwyw/test{{ i }}.jpg" alt="详细信息" style="width: 100%;">
+			<a href="{{ url_for('main.article', title=dwyw[i]) }}"><img src="../static/img/dwyw/test{{ i }}.jpg" alt="详细信息"></a>
 		</div>
 	</div>
 </div>

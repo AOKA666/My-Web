@@ -1,310 +1,215 @@
 {% extends "base.html" %}
 
 
-{% block login %}
-	<ul class="list-inline text-right" style="margin-right: 20px;">	
-		{% if current_user.is_authenticated %}
-			<li><h4 class="text-info">Hello 
-			<span class="glyphicon glyphicon-user"></span>{{ current_user.username}}</h4></li>
-			<li><a href="{{ url_for('logout') }}">
-			<span class="glyphicon glyphicon-log-out"></span>登出</a></li>
-		{% else %}
-			<li><h4 class="text-info">Hello 
-			<span class="glyphicon glyphicon-user"></span>陌生人 </h4></li>
-			<li><a href="{{ url_for('login') }}">
-			<span class="glyphicon glyphicon-log-in"></span>请登录</a></li>
-		{% endif %}
-	</ul>
-{% endblock %}
 {% block button %}
 	<a class="btn btn-info">了解更多</a>
 {% endblock %}
 {% block navbar %}
-        <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><span class="nav-active">动物星球</span></a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('show') }}" target="view_window">陆地动物</a></li>
-                    <li><a href="#">海洋动物</a></li>
-                    <li><a href="#">天空动物</a></li>
-                </ul>
-            </div>
-        </div>
-        </nav>
-	{% endblock %}
-
-{% block content %}
-<div class="container">
-    <div class="row">
-		<div class="col-md-4" height: 1000px;>
-			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				<!-- 轮播（Carousel）指标 -->
-				<ol class="carousel-indicators">
-					<li data-target="#myCarousel" data-slide-to="0", class="active"></li>
-					<li data-target="#myCarousel" data-slide-to="1"></li>
-					<li data-target="#myCarousel" data-slide-to="2"></li>
-				</ol>   
-				<!-- 轮播（Carousel）项目 -->
-				<div class="carousel-inner">
-					<div class="item active">
-						<img class="img-responsive" src="../static/img/lunbo/lion.jpg" alt="First slide" style="width:100%;">
-						<div class="carousel-caption">怪尾巴被杀</div>
-					</div>
-					<div class="item">
-						<img class="img-responsive" src="../static/img/lunbo/tiger.jpg" alt="Second slide" style="width:100%;">
-						<div class="carousel-caption">查吉尔弑父</div>
-					</div>
-					<div class="item">
-						<img class="img-responsive" src="../static/img/lunbo/cheetah.jpg" alt="Third slide" style="width:100%;">
-						<div class="carousel-caption">专家测试猎豹最高速可达130km/h</div>
-					</div>
-				</div>
-				<!-- 轮播（Carousel）导航 -->
-				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-			<div class="well well-sm" style="margin-top:10px;">
-				<span class="glyphicon glyphicon-chevron-down text-danger">上古动物</span>
-			</div>
-			<div class="col-md-6 column" id="zoom" style="height:120px;">
-				<img src="../static/img/ancient/ancient1.jpg" id="img-ancient">
-			</div>
-			<div class="col-md-6 column" id="zoom" style="height:120px;">
-				<img src="../static/img/ancient/ancient2.jpg" id="img-ancient">
-			</div>
-			<div class="col-md-6">
-				<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">霸王龙奔跑速度</a></span>
-			</div>
-			<div class="col-md-6">
-				<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">异特龙称霸侏罗纪</a></span>
-			</div>
-			<div class="col-md-6">
-				<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">最大的食草恐龙</a></span>
-			</div>
-			<div class="col-md-6">
-				<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">犹他盗龙战力</a></span>
-			</div>
-		</div>            
-		<div class="col-md-8">
-			<ul class="nav nav-tabs" id="navs">
-				<li class="active mynav"><a class="news" data-toggle="tab">动物要闻</a></li>
-				<li class="mynav"><a class="news" data-toggle="tab">热门资讯</a></li>
-				<li class="mynav"><a class="news" data-toggle="tab">巴拉巴拉</a></li>
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><span class="nav-active">动物星球</span></a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="{{ url_for('main.show', area='land', page=1) }}">陆地动物</a></li>
+				<li><a href="{{ url_for('main.show', area='ocean', page=1) }}">海洋动物</a></li>
+				<li><a href="{{ url_for('main.show', area='sky', page=1) }}">天空动物</a></li>
 			</ul>
-			<div class="tab-content" id="tabs">
-				<div class="tab-pane fade in active">
-					<div class="panel-group" id="dwyw">
-						{% for i in range(10) %}
-						{% include '_dwyw.html' %}
-						{% endfor %}
-					</div>
+		</div>
+	</div>
+	</nav>
+{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-md-4" height: 1000px;>
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- 轮播（Carousel）指标 -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0", class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>   
+			<!-- 轮播（Carousel）项目 -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="../static/img/lunbo/lion.jpg" alt="First slide" style="width:100%;">
+					<div class="carousel-caption">怪尾巴被杀</div>
 				</div>
-				<div class="tab-pane fade">
-					<div class="panel-group" id="rmzx">
-						{% for i in range(10) %}
-						{% include '_rmzx.html' %}
-						{% endfor %}
-					</div>
+				<div class="item">
+					<img class="img-responsive" src="../static/img/lunbo/tiger.jpg" alt="Second slide" style="width:100%;">
+					<div class="carousel-caption">查吉尔弑父</div>
 				</div>
-				<div class="tab-pane fade">
-					<div class="panel-group" id="blbl">
-						{% for i in range(10) %}
-						{% include '_blbl.html' %}
-						{% endfor %}
-					</div>
+				<div class="item">
+					<img class="img-responsive" src="../static/img/lunbo/cheetah.jpg" alt="Third slide" style="width:100%;">
+					<div class="carousel-caption">专家测试猎豹最高速可达130km/h</div>
+				</div>
+			</div>
+			<!-- 轮播（Carousel）导航 -->
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		<div class="well well-sm" style="margin-top:10px;">
+			<span class="glyphicon glyphicon-chevron-down text-danger">上古动物</span>
+		</div>
+		<div class="col-md-6 box" style="margin-bottom:10px;">
+			<img src="../static/img/ancient/ancient1.jpg" class="img-zoom img-responsive">
+		</div>
+		<div class="col-md-6 box" style="margin-bottom:10px;">
+			<img src="../static/img/ancient/ancient2.jpg" class="img-zoom img-responsive">
+		</div>
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">霸王龙奔跑速度</a></span>
+		</div>
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">异特龙称霸侏罗纪</a></span>
+		</div>
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">最大的食草恐龙</a></span>
+		</div>
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-chevron-right text-primary"><a href="#">犹他盗龙战力</a></span>
+		</div>
+	</div>            
+	<div class="col-md-8">
+		<ul class="nav nav-tabs" id="navs">
+			<li class="active"><a href="#dwyw" data-toggle="tab"><b>动物故事</b></a></li>
+			<li><a href="#rmzx" data-toggle="tab"><b>动物科普</b></a></li>
+			<li><a href="#blbl" data-toggle="tab"><b>巴拉巴拉</b></a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="dwyw">
+				<div class="panel-group">
+					{% for i in range(10) %}
+					{% include '_dwyw.html' %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="rmzx">
+				<div class="panel-group">
+					{% for i in range(10) %}
+					{% include '_rmzx.html' %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="blbl">
+				<div class="panel-group">
+					{% for i in range(10) %}
+					{% include '_blbl.html' %}
+					{% endfor %}
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-danger">
-		<div class="panel-heading text-center">
-			<strong class="panel-title">热门版块</strong>
-			<div style="float:right;">
-				<span class="glyphicon glyphicon-chevron-right text-danger"></span>
-				<a href="#" class="text-danger">了解更多</a>
-			</div>
-		</div>
-		<div class="panel-body box">
-			<div class="col-md-6">
-				<img src="../static/img/rmbk/rmbk-tiger.png" class="rmbk-tiger rmbk">
-			</div>
-			<div class="col-md-6">
-				<img src="../static/img/rmbk/rmbk-lion.png" class="rmbk-lion rmbk">
-			</div>
+</div>
+<div class="panel panel-danger">
+	<div class="panel-heading text-center">
+		<strong class="panel-title">热门版块</strong>
+		<div style="float:right;">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<a href="#" class="text-danger">了解更多</a>
 		</div>
 	</div>
-	<div class="panel panel-danger">
-		<div class="panel-heading text-center">
-			<strong class="panel-title">动物竞技场</strong>
+	<div class="panel-body box">
+		<div class="col-md-6">
+			<img src="../static/img/rmbk/rmbk-tiger.png" class="img-zoom zoom-tiger img-responsive">
 		</div>
-		<div class="panel-body box">
+		<div class="col-md-6">
+			<img src="../static/img/rmbk/rmbk-lion.png" class="img-zoom zoom-lion img-responsive">
+		</div>
+	</div>
+</div>
+<div class="panel panel-danger">
+	<div class="panel-heading text-center">
+		<strong class="panel-title">动物竞技场</strong>
+		<div style="float:right;">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<a href="#" class="text-danger">了解更多</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		{% include '_arena.html' %}
+	</div>
+</div>
+<div class="panel panel-success">
+	<div class="panel-heading text-center">
+		<strong class="panel-title">精彩视频</strong>
+		<div style="float:right;">
+			<span class="glyphicon glyphicon-chevron-right text-success"></span>
+			<a href="#" class="text-success">了解更多</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
 			{% for i in range(3) %}
-			{% include '_arena.html' %}
+			{% include '_video.html' %}
 			{% endfor %}
 		</div>
 	</div>
-	<div class="panel panel-success">
-		<div class="panel-heading text-center">
-			<strong class="panel-title">精彩视频</strong>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				{% for i in range(3) %}
-				{% include '_video.html' %}
-				{% endfor %}
-			</div>
+</div>
+<div class="panel panel-primary" id="web-nav">
+	<div class="panel-heading text-center">
+		<strong class="panel-title">网址导航</strong>
+		<div style="float:right;">
+			<span class="glyphicon glyphicon-chevron-down"></span>
 		</div>
 	</div>
-	<div class="panel panel-success">
-		<div class="panel-heading text-center">
-			<strong class="panel-title">纪录片网站导航</strong>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-3">
-					<p class="lead text-center text-warning"><strong>国内网站</strong></p>
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-4"><h4><a href="#">网站1</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站2</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站3</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站4</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站5</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站6</a></h4></div>
-					</div>
-				</div>					
+</div>
+<ul class="nav nav-pills" id="web-nav-ul">
+	<li class="dropdown active pull-right">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="web-nav-a">
+			分类<b class="caret"></b></a>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="#region" tabindex="-1" data-toggle="tab">地区</a></li>
+			<li><a href="#animal" tabindex="-1" data-toggle="tab">动物</a></li>
+		</ul>
+	</li>
+</ul>
+{% include "_webNav.html" %}
+
+<div class="row">
+	<div class="col-md-4">
+		<h2>热门议题</h2>
+		<div class="panel panel-info">
+			<div class="panel-heading text-center">
+				<strong class="panel-title">一只老虎能打多少只鬣狗</strong>
 			</div>
-			<hr/>
-			<div class="row">
-				<div class="col-md-3">
-					<p class="lead text-center text-warning"><strong>国外网站</strong></p>
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-4"><h4><a href="#">网站1</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站2</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站3</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站4</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站5</a></h4></div>
-						<div class="col-md-4"><h4><a href="#">网站6</a></h4></div>
-					</div>
-				</div>					
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<h2>热门议题</h2>
-			<div class="panel panel-info">
-				<div class="panel-heading text-center">
-					<strong class="panel-title">一只老虎能打多少只鬣狗</strong>
-				</div>
 			<div class="panel-body">
 				<img src="../static/img/rmyt/yyds.jpg" class="img-responsive img-rounded">
 			</div>
 		</div>
-			<p><h4><a href="#">尼罗鳄能否单挑杀死成年水牛</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-			<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
-		</div>
-		<div class="col-md-8">
-			<h2>视觉焦点</h2>
-			<div class="row">
-				<div class="col-md-6">
-					<a href="../static/img/sjjd/crocodile.jpg" target="_blank">
-					<img src="../static/img/sjjd/crocodile.jpg" class="img-responsive img-rounded shijue">
-					</a>
-				</div>
-				<div class="col-md-6">
-					<a href="../static/img/sjjd/eagle.jpg" target="_blank">
-					<img src="../static/img/sjjd/eagle.jpg" class="img-responsive img-rounded shijue">
-					</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<a href="../static/img/sjjd/tiger.jpg" target="_blank">
-					<img src="../static/img/sjjd/tiger.jpg" class="img-responsive img-rounded shijue">
-					</a>
-				</div>
-				<div class="col-md-6">
-					<a href="../static/img/sjjd/wolf.jpg" target="_blank">
-					<img src="../static/img/sjjd/wolf.jpg" class="img-responsive img-rounded shijue">
-					</a>
-				</div>
-			</div>
+		<p><h4><a href="#">尼罗鳄能否单挑杀死成年水牛</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+		<p><h4><a href="#">之类的减肥啦卡迪夫啦啦骄傲卡看</a></h4></p>
+	</div>
+	<div class="col-md-8">
+		<h2>视觉焦点</h2>
+		{% include "_picture.html" %}
+	</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading text-center">
+		<strong class="panel-title">相关游戏推荐</strong>
+		<div style="float:right;">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<a href="#" class="text-info">了解更多</a>
 		</div>
 	</div>
-	<div class="panel panel-success">
-		<div class="panel-heading text-center">
-			<strong class="panel-title">相关游戏推荐</strong>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title text-center">								
-									孤岛惊魂系列
-									<span class="label label-warning">推荐</span>
-								</h4>
-							</div>						
-							<div class="panel-body">
-								<img src="../static/img/games/farcry.jpg" class="img-responsive img-rounded">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title text-center">
-									动物园之星
-								</h4>
-							</div>						
-							<div class="panel-body">
-								<img src="../static/img/games/planet-zoo.jpg" class="img-responsive img-rounded">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title text-center">
-									猎人：野性的呼唤
-								</h4>
-							</div>						
-							<div class="panel-body">
-								<img src="../static/img/games/hunter.jpg" class="img-responsive img-rounded">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
+	{% include "_game.html" %}
 </div>
 {% endblock %}

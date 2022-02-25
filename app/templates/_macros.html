@@ -1,0 +1,37 @@
+{% macro animal_display(location, start, end, result, perpage, end_page, name) %}
+	{% for i in range(start, end) %}
+		{% if i % 4 == 0 %}
+		<div class="row">
+		{% endif %}	
+		<div class="col-sm-6 col-md-3">
+			<div class="thumbnail box land-box">
+				<a href="../static/img/{{ name }}/{{ result[0][i] }}.jpg" target="_blank">
+					<img src="../static/img/{{ name }}/{{ result[0][i] }}.jpg" class="img-zoom">
+				</a>
+				<div class="caption">
+					<h3>{{ result[1][i] }}</h3>
+					<p>{{ result[2][i] }}</p>
+					<p>
+						<a href="#" class="btn btn-primary">详情</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		{% if i % 4 == 3 or i == end-1 %}
+		</div>
+		{% endif %}
+	{% endfor %}
+	<div style="text-align:center;">
+		<ul class="pagination">
+			<li class="previous"><a>&laquo;</a></li>
+			{% for i in range(1,end_page+1) %}
+				{% if start/perpage == i-1 %}
+				<li class="page active" id="target"><a href="{{ url_for('main.show', area=location, page=i) }}">{{ i }}</a></li>
+				{% else %}
+				<li class="page"><a href="{{ url_for('main.show', area=location, page=i) }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+			<li class="next"><a>&raquo;</a></li>
+		</ul>
+	</div>
+{% endmacro %}

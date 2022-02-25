@@ -1,0 +1,68 @@
+2022-02-16 13:15:02,868 ERROR: Exception on /static/img/dwyw/test7.jpg [GET] [in d:\flask_web\venv\lib\site-packages\flask\app.py:1455]
+Traceback (most recent call last):
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1772, in _execute_context
+    cursor, statement, parameters, context
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\flask_web\venv\lib\site-packages\flask\app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "d:\flask_web\venv\lib\site-packages\flask\app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "d:\flask_web\venv\lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "d:\flask_web\venv\lib\site-packages\flask\app.py", line 1857, in preprocess_request
+    rv = self.ensure_sync(func)()
+  File "D:\Flask_web\app\views.py", line 16, in before_request
+    if current_user.is_authenticated:
+  File "d:\flask_web\venv\lib\site-packages\werkzeug\local.py", line 422, in __get__
+    obj = instance._get_current_object()
+  File "d:\flask_web\venv\lib\site-packages\werkzeug\local.py", line 544, in _get_current_object
+    return self.__local()  # type: ignore
+  File "d:\flask_web\venv\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "d:\flask_web\venv\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "d:\flask_web\venv\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\Flask_web\app\models.py", line 49, in load_user
+    return User.query.get(int(id))
+  File "<string>", line 2, in get
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\util\deprecations.py", line 390, in warned
+    return fn(*args, **kwargs)
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\orm\query.py", line 943, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\orm\query.py", line 955, in _get_impl
+    execution_options=self._execution_options,
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\orm\session.py", line 2843, in _get_impl
+    load_options=load_options,
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\orm\loading.py", line 528, in load_on_pk_identity
+    bind_arguments=bind_arguments,
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 324, in _execute_on_connection
+    self, multiparams, params, execution_options
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1462, in _execute_clauseelement
+    cache_hit=cache_hit,
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1815, in _execute_context
+    e, statement, parameters, cursor, context
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1996, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\util\compat.py", line 207, in raise_
+    raise exception
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1772, in _execute_context
+    cursor, statement, parameters, context
+  File "d:\flask_web\venv\lib\site-packages\sqlalchemy\engine\default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.real_avatar AS users_real_avatar, users.about_me AS users_about_me, users.last_seen AS users_last_seen, users.password_hash AS users_password_hash, users.role_id AS users_role_id 
+FROM users 
+WHERE users.id = ?]
+[parameters: (3,)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

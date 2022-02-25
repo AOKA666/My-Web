@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block content %}
+{% if current_user.can(Permission.WRITE) %}
+<form class="form" method="POST">
+	{{ wtf.quick_form(form) }}
+</form>
+{% endif %}
+<p></p>
+{{ posts.body|safe }}
+{% if current_user.can(Permission.WRITE) %}
+<button class="btn btn-warning">
+	<a href="{{ url_for('main.delete', id=posts.id, title=title) }}" class="text-muted"><b>删除</b></a>
+</button>
+<button class="btn btn-info">
+	<a href="{{ url_for('main.edit', id=posts.id, title=title) }}" class="text-muted"><b>编辑</b></a>
+</button>
+{% endif %}
+<p></p>
+<hr>
+<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+  <span class="glyphicon glyphicon-thumbs-up"></span> 点赞
+</a>
+<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+  <span class="glyphicon glyphicon-star-empty"></span> 收藏
+</a>
+<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+  <span class="glyphicon glyphicon-comment"></span> 评论
+</a>
+{% if not current_user.is_authenticated %}<span class="text-danger">请登录!</span>{% endif %}
+{% if current_user.can(Permission.COMMENT) %}
+	{{ wtf.quick_form(form2) }}
+	<p></p>
+	{% for comment in comments %}
+	<div>
+		{% if comment.user.real_avatar %}
+		<img class="img-circle profile-thumbnail" src="{{ comment.user.real_avatar }}" 
+			style="width:36px;height:36px;">
+		{% else %}
+		<img class="img-circle profile-thumbnail" src="../static/avatars/default.jpg" 
+			style="width:36px;height:36px;"/>
+		{% endif %}
+		<a href="{{ url_for('auth.user', username=comment.user.username) }}">
+			{{ comment.user.username }}
+		</a>
+		<div class="pull-right">{{ moment(comment.timestamp).fromNow() }}</div>
+	</div>
+	<p></p>
+	<div class="well well-sm">{{ comment.body|safe }}</div>	
+	<p></p>
+	{% endfor %}	
+	<ul class="pager">
+		{% if prev_url %}
+		<li><a href="{{ prev_url }}">上一页</a></li>
+		{% endif %}
+		{% if next_url %}
+		<li><a href="{{ next_url }}">下一页</a></li>
+	{% endif %}
+	</ul>
+	
+{% endif %}
+{% endblock %}

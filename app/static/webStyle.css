@@ -1,50 +1,62 @@
+/* foot悬停在底部 */
+html, body{
+	height: 100%;
+}
+.wrapper{
+	min-height: 100%;
+	margin-bottom: -100px;
+}
+.foot{
+	height: 100px;
+}
+.push{
+	height: 100px;
+}
+/* 所有图片默认100% */
+img{
+	width: 100%;
+	object-fit: cover;
+}
+/* 动物星球高亮 */
 .nav-active{
 	color: white;
 }
-
-#img-ancient{
-	width: 100%;
+/* 图片悬停放大 */
+.img-zoom{
 	cursor: pointer;
 	transition: all 0.6s;
 }
-#img-ancient:hover{
-	transform: scale(1.5)
-}
-#zoom{
-	overflow: hidden;
-}
-.rmbk-tiger{
-	width: 100%;
-	cursor: pointer;
-	transition: all 0.6s;
-	margin-left: 10%;
-}
-.rmbk-lion{
-	width: 100%;
-	cursor: pointer;
-	transition: all 0.6s;
-	margin-left: -10%;
-}
-.rmbk:hover{
+.img-zoom:hover{
 	transform: scale(1.2);
 }
 .box{
 	overflow: hidden;
 }
-.arena{
-	width: 100%;
+/* 热门版块图片位置调整 */
+.zoom-tiger{
+	margin-left: 10%;
 }
+.zoom-lion{
+	margin-left: -10%;
+}
+/* 视觉焦点图片间距 */
 .shijue{
 	margin: 10px 0;
 }
-.news{
+/* .news{
 	cursor: pointer;
-}
+} */
+/* "动物要闻"等tab的链接变成整行 */
 .link{
 	display: inline-block;
 	width: 100%;
 }
+/* 注册登录表单边距 */
 .myform{
 	margin-top: 8%;
 	margin-bottom: 8%;
+}
+/* 陆地动物顶部间隙 */
+.land-box{
+	margin-top: 20px;
 }
