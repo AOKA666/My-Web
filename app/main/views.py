@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_bootstrap import Bootstrap
 from app import db, ckeditor
 from app.main import bp
 from .forms import EditForm
+from ..auth.forms import CommentForm
 from ..models import User, Post, Permission, Comments
 import os, datetime, random
 import json
@@ -56,7 +57,7 @@ def show(area, page):
     result.append(en_name)
     result.append(ch_name)
     result.append(description)
-    perpage = app.config['IMAGE_PER_PAGE']
+    perpage = current_app.config['IMAGE_PER_PAGE']
     start= (int(page)-1) * perpage
     end = int(page) * perpage
     if end > num:
@@ -81,7 +82,7 @@ def upload():
             return upload_fail(message='Image only!')
         fname, fext = os.path.splitext(f.filename)
         rnd_name = '%s%s' % (gen_rnd_filename(), fext)
-        filepath = os.path.join(app.static_folder, 'upload', rnd_name)        
+        filepath = os.path.join(current_app.static_folder, 'upload', rnd_name)        
         # 检查路径是否存在，不存在则创建
         dirname = os.path.dirname(filepath)
         if not os.path.exists(dirname):
@@ -121,18 +122,23 @@ def article(title):
         return redirect(url_for('main.article', title=form.title.data))
     posts = Post.query.filter_by(title=title).first()
     if form2.validate_on_submit():
-        comment = Comments(body=form2.body.data,post=posts,user=current_user._get_current_object())
+        comment = Comments(body=form2.body.data,post_id=posts.id,author_id=current_user.id)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.article', title=title))
     # 评论分页
     page = request.args.get('page',1,type=int)
-    comments = Comments.query.order_by(Comments.timestamp.desc()).paginate(
-        page, app.config['COMMENTS_PER_PAGE'], False)
-    next_url = url_for('main.article', title=title, page=comments.next_num)\
-        if comments.has_next else None
-    prev_url = url_for('main.article', title=title, page=comments.prev_num) \
-        if comments.has_prev else None
+    if posts:
+        comments = Comments.query.filter_by(post_id=posts.id).order_by(Comments.timestamp.desc()).paginate(
+            page, current_app.config['COMMENTS_PER_PAGE'], False)
+        next_url = url_for('main.article', title=title, page=comments.next_num)\
+            if comments.has_next else None
+        prev_url = url_for('main.article', title=title, page=comments.prev_num) \
+            if comments.has_prev else None
+    else:
+        comments = {}
+        next_url = ''
+        prev_url = ''
     return render_template("article.html", title=title, form=form, form2=form2, 
                             posts=posts, comments=comments.items, next_url=next_url, prev_url=prev_url, Permission=Permission)
  

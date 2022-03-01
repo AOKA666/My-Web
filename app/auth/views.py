@@ -154,3 +154,11 @@ def reset_password(token):
         flash('密码重置成功！')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
+    
+@bp.route('/article/<title>/deleteComments/<id>', methods=['GET','POST'])
+def deleteComments(title, id):
+    comment = Comments.query.get(id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('评论删除成功！')
+    return redirect(url_for('main.article', title=title))

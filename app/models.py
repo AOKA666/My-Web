@@ -185,4 +185,4 @@ class Comments(db.Model):
     post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
     
     def __repr__(self):
-        return '<Comment %s' % self.body
+        return '<Comment %s>' % self.body

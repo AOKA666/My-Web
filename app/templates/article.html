@@ -20,45 +20,56 @@
 {% endif %}
 <p></p>
 <hr>
-<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
-  <span class="glyphicon glyphicon-thumbs-up"></span> 点赞
-</a>
-<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
-  <span class="glyphicon glyphicon-star-empty"></span> 收藏
-</a>
-<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
-  <span class="glyphicon glyphicon-comment"></span> 评论
-</a>
-{% if not current_user.is_authenticated %}<span class="text-danger">请登录!</span>{% endif %}
-{% if current_user.can(Permission.COMMENT) %}
-	{{ wtf.quick_form(form2) }}
-	<p></p>
-	{% for comment in comments %}
-	<div>
-		{% if comment.user.real_avatar %}
-		<img class="img-circle profile-thumbnail" src="{{ comment.user.real_avatar }}" 
-			style="width:36px;height:36px;">
-		{% else %}
-		<img class="img-circle profile-thumbnail" src="../static/avatars/default.jpg" 
-			style="width:36px;height:36px;"/>
+{% if posts %}
+	<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+	  <span class="glyphicon glyphicon-heart-empty" style="color: rgb(255, 255, 255);"></span> 点赞
+	</a>
+	<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+	  <span class="glyphicon glyphicon-star-empty"></span> 收藏
+	</a>
+	<a class="btn btn-primary btn-sm {{'' if current_user.is_authenticated else 'disabled' }}" href="#">
+	  <span class="glyphicon glyphicon-comment"></span> 评论
+	</a>
+	{% if not current_user.is_authenticated %}<span class="text-danger">请登录!</span>{% endif %}
+	{% if current_user.can(Permission.COMMENT) %}
+		{{ wtf.quick_form(form2) }}
+		<p></p>
+		{% for comment in comments %}
+		<div>
+			{% if comment.user.real_avatar %}
+			<img class="img-circle profile-thumbnail" src="{{ comment.user.real_avatar }}" 
+				style="width:36px;height:36px;">
+			{% else %}
+			<img class="img-circle profile-thumbnail" src="../static/avatars/default.jpg" 
+				style="width:36px;height:36px;"/>
+			{% endif %}
+			<a href="{{ url_for('main.user', username=comment.user.username) }}">
+			{% if comment.user == current_user %}
+				<b>{{ comment.user.username }}</b>
+			{% else %}
+				{{ comment.user.username }}
+			{% endif %}
+			</a>
+			<div class="pull-right">
+				{{ moment(comment.timestamp).fromNow() }}&nbsp;&nbsp;
+				{% if comment.user == current_user %}
+					<a href="{{ url_for('auth.deleteComments', title=title, id=comment.id) }}">删除评论</a>
+				{% endif %}
+			</div>
+		</div>
+		<p></p>
+		<div class="well well-sm">{{ comment.body|safe }}</div>	
+		<p></p>
+		{% endfor %}	
+		<ul class="pager">
+			{% if prev_url %}
+			<li><a href="{{ prev_url }}">上一页</a></li>
+			{% endif %}
+			{% if next_url %}
+			<li><a href="{{ next_url }}">下一页</a></li>
 		{% endif %}
-		<a href="{{ url_for('auth.user', username=comment.user.username) }}">
-			{{ comment.user.username }}
-		</a>
-		<div class="pull-right">{{ moment(comment.timestamp).fromNow() }}</div>
-	</div>
-	<p></p>
-	<div class="well well-sm">{{ comment.body|safe }}</div>	
-	<p></p>
-	{% endfor %}	
-	<ul class="pager">
-		{% if prev_url %}
-		<li><a href="{{ prev_url }}">上一页</a></li>
-		{% endif %}
-		{% if next_url %}
-		<li><a href="{{ next_url }}">下一页</a></li>
+		</ul>
+		
 	{% endif %}
-	</ul>
-	
 {% endif %}
 {% endblock %}
