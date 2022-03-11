@@ -33,6 +33,9 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 
 from app.main import bp as main_bp
 app.register_blueprint(main_bp)
+
+from app.page import bp as page_bp
+app.register_blueprint(page_bp)
     
 if not app.debug:
     if app.config['MAIL_SERVER']:

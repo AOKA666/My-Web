@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 
-{% block button %}
-	<a class="btn btn-info">了解更多</a>
-{% endblock %}
 {% block navbar %}
 	<nav class="navbar navbar-inverse">
 	<div class="container-fluid">
@@ -123,10 +120,14 @@
 	</div>
 	<div class="panel-body box">
 		<div class="col-md-6">
-			<img src="../static/img/rmbk/rmbk-tiger.png" class="img-zoom zoom-tiger img-responsive">
+			<a href="{{ url_for('page.hotsection_tiger') }}">
+				<img src="../static/img/rmbk/rmbk-tiger.png" class="img-zoom zoom-tiger img-responsive">
+			</a>
 		</div>
 		<div class="col-md-6">
-			<img src="../static/img/rmbk/rmbk-lion.png" class="img-zoom zoom-lion img-responsive">
+			<a href="{{ url_for('page.hotsection_lion') }}">
+				<img src="../static/img/rmbk/rmbk-lion.png" class="img-zoom zoom-lion img-responsive">
+			</a>
 		</div>
 	</div>
 </div>

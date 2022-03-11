@@ -8,29 +8,29 @@ from flask_ckeditor import CKEditorField
 
 class LoginForm(FlaskForm):
     # email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Keep me logged in')
-    submit = SubmitField('Log In')
+    username = StringField('用户名', validators=[DataRequired()])
+    password = PasswordField('密码', validators=[DataRequired()])
+    remember_me = BooleanField('保持登录状态')
+    submit = SubmitField('登录')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Length(1,64), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('用户名', validators=[DataRequired()])
+    email = StringField('邮箱', validators=[DataRequired(), Length(1,64), Email()])
+    password = PasswordField('密码', validators=[DataRequired()])
     password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Register')
+        '重复密码', validators=[DataRequired(), EqualTo('密码')])
+    submit = SubmitField('注册')
     
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username')
+            raise ValidationError('用户名已存在')
     
     def validate_email(self, email):
         email = User.query.filter_by(email=email.data).first()
         if email is not None:
-            raise ValidationError('Please use a different email address')
+            raise ValidationError('邮箱地址已存在')
 
 
 class CommentForm(FlaskForm):

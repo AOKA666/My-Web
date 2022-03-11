@@ -2,9 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
-{% block button %}
-	<button class="btn btn-lg btn-info">{{ title }}</button>
-{% endblock %}
+{% block title %}动物星球-{{ title }}{% endblock %}
 {% block content %}
 {{ macros.animal_display(location, start, end, result, perpage, end_page, name) }}
 {% endblock %}

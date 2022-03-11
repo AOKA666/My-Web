@@ -9,27 +9,36 @@
 {% block body %}
 	<div class="wrapper">
 		{% for message in get_flashed_messages() %}
-		<div class="alert alert-success text-center">
+		<div class="alert {{ 'alert-warning' if '错误' in message else 'alert-success' }} text-center">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			{{ message }}
 		</div>
 		{% endfor %}
 		<div class="jumbotron text-center" style="margin-bottom:0;padding-top: 24px;">
-		<ul class="list-inline text-right" style="margin-right: 20px;">
+		<ul class="list-inline text-right" style="margin-right: 20px;">		
 		{% if current_user.is_authenticated %}
-			<li><h4 class="text-info">Hello 
-			<span class="glyphicon glyphicon-user"></span><a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username}}</h4></li>
+			<span class="glyphicon glyphicon-home"></span><li><a href="{{ url_for('main.index') }}"><h4 class="text-info">首页</h4></a></li>
+			<li><h4 class="text-info">欢迎
+			{% if current_user.real_avatar %}
+				<img class="img-circle profile-thumbnail" src="{{ current_user.real_avatar }}" 
+					style="width:30px;height:30px;">
+			{% else %}
+				<img class="img-circle profile-thumbnail" src="../static/avatars/default.jpg" 
+					style="width:30px;height:30px;"/>
+			{% endif %}
+			<a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username}}</h4></li>
 			<li><a href="{{ url_for('auth.logout') }}">
 			<span class="glyphicon glyphicon-log-out"></span>登出</a></li>
 		{% else %}
-			<li><h4 class="text-info">Hello 
+			<span class="glyphicon glyphicon-home"></span><li><a href="{{ url_for('main.index') }}"><h4 class="text-info">首页</h4></a></li>
+			<li><h4 class="text-info">欢迎 
 			<span class="glyphicon glyphicon-user"></span>陌生人 </h4></li>
 			<li><a href="{{ url_for('auth.login') }}">
 			<span class="glyphicon glyphicon-log-in"></span>请登录</a></li>
 		{% endif %}
 		</ul>
-		<h1><a href="{{url_for('main.index')}}" style="text-decoration:none;">动物星球</a></h1>
-		{% block button %}{% endblock %}
+		<h1><span class="text-primary">动物星球</span></h1>
+		<a class="btn btn-info">了解更多</a>
 		</div>
 		{% block navbar %}{% endblock %}
 		<div class="container">

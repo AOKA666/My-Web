@@ -31,7 +31,7 @@ def index():
     return render_template("index.html", dwyw=dwyw, rmzx=rmzx, blbl=blbl)
 
 
-@bp.route('/<area>/<page>', methods=['GET','Post'])
+@bp.route('/animals/<area>/<page>')
 def show(area, page):
     if area == 'land':
         f = open("app/templates/land_animal_list.txt")
